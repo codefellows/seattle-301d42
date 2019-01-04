@@ -34,7 +34,7 @@ Follow these instructions carefully and in order.
 1. When you think you have things working, clear local storage and reload the page to ensure that the code still works when starting from a totally clean state.
 1. As a refresher on template literal notation, find all concatenations in the code and convert them into template literal notation.
 1. Reload the browser to ensure that the code works as expected.
-1. When finished, push your branch back to your fork on GitHub, and merge it into master. Submit the link to this pull request in the corresponding Canvas assignment. You can submit a link to a pull request even if the pull request is closed.
+1. When finished, push your branch back to your fork on GitHub, and merge it into the master branch of your fork. Submit the link to this pull request in the corresponding Canvas assignment. You can submit a link to a pull request even if the pull request is closed.
 
 ## Additional resources for let and const
 
