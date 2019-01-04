@@ -17,7 +17,7 @@ Why does this happen? Arrow functions do not bind "this", so the context of "thi
 1. For each of these steps, uncomment the console.log line. Open the `index.html` file in the browser and verify the correct output in the developer console.
 1. To complete step 10, refactor the function expressions one at a time. Uncomment the console.log line and use it to check that the output is the same after you have completed the refactoring process.
 1. To complete step 11, uncomment the two console.log lines and observe the output in the developer console in the browser. Answer the corresponding questions.
-1. When finished, push your branch back to your fork on GitHub, and merge it into master. Submit the link to this pull request in the corresponding Canvas assignment. You can submit a link to a pull request even if the pull request is closed.
+1. When finished, push your branch back to your fork on GitHub, and merge it into your master branch. Submit the link to this pull request in the corresponding Canvas assignment. You can submit a link to a pull request even if the pull request is closed.
 
 ## Additional resources for arrow functions
 
