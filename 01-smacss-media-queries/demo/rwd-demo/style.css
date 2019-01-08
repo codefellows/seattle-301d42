@@ -1,0 +1,16 @@
+div {
+  height: 300px;
+  border: 1px solid black;
+  background: #888;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  section {
+    width: 20000px;
+  }
+  div {
+    float: left;
+    width: 300px;
+  }
+}
