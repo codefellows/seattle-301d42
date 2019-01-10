@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+
+div {
+  height: 200px;
+  width: 200px;
+  border: 5px solid red;
+  background: gray;
+  margin: 10px;
+  text-align: center;
+  line-height: 200px;
+  font-size: 3em;
+}
+
+#two:hover {
+  flex-grow: 2;
+}
+
+.odd {
+  background: yellow;
+  height: 100px;
+  width: 200px;
+  line-height: 100px
+}
+
+.even {
+  background: cyan;
+  height: 200px;
+  width: 100px;
+}

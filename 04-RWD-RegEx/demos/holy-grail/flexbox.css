@@ -1,0 +1,31 @@
+@media (min-width: 960px) {
+  body {
+
+  }
+
+  main {
+    
+  }
+
+  main > aside {
+
+    width: 250px;
+  }
+
+  main > nav {
+
+    width: 250px;
+  }
+
+  main > .content {
+
+  }
+
+  .deck {
+
+  }
+
+  .card {
+
+  }
+}
