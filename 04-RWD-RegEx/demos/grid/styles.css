@@ -1,7 +1,7 @@
 .container {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-auto-rows: 280px;
 }
 
 div {
@@ -13,13 +13,12 @@ div {
   text-align: center;
   line-height: 200px;
   font-size: 3em;
+  justify-self: center;
+
 }
 
-#two:hover {
-  flex-grow: 2;
-}
 
-.odd {
+/* .odd {
   background: yellow;
   height: 100px;
   width: 200px;
@@ -30,4 +29,4 @@ div {
   background: cyan;
   height: 200px;
   width: 100px;
-}
+} */
