@@ -38,6 +38,15 @@ function handleError(err, res) {
   if (res) res.status(500).send('Sorry, something went wrong');
 }
 
+const timeouts = {
+  weather: 1000 * 15
+}
+
+function deleteByLocationId(table, cityId) {
+  const SQL = `DELETE from ${table} WHERE location_id=${cityId}`;
+  return client.query(SQL);
+}
+
 // ---------- LOCATION ------------- //
 
 // Route Handler
@@ -131,7 +140,21 @@ function getWeather(request, response) {
     location: request.query.data,
 
     cacheHit: function(result) {
-      response.send(result.rows);
+      let ageOfResults = (Date.now() - result.rows[0].created_at);
+      console.log('result.rows', result.rows[0].created_at)
+      console.log('age', ageOfResults);
+      console.log('timeout', timeouts.weather);
+
+      if( ageOfResults > timeouts.weather ) {
+      // if results are stale
+        // remove stale data
+        Weather.deleteByLocationId('weathers', this.location.id);
+        // deleteByLocationId('weathers', request.query.data.id);
+        // request new data
+        this.cacheMiss();
+      } else {
+        response.send(result.rows);
+      }
     },
 
     cacheMiss: function() {
@@ -149,13 +172,18 @@ function getWeather(request, response) {
 function Weather(day) {
   this.forecast = day.summary;
   this.time = new Date(day.time * 1000).toString().slice(0, 15);
+  this.created_at = Date.now();
 }
+
+// Share the delete method with all constructors
+Weather.deleteByLocationId = deleteByLocationId;
 
 // Instance Method: Save a location to the DB
 Weather.prototype.save = function(id) {
-  const SQL = `INSERT INTO weathers (forecast, time, location_id) VALUES ($1, $2, $3);`;
-  const values = Object.values(this);
-  values.push(id);
+  const SQL = `INSERT INTO weathers (forecast, time, created_at, location_id) VALUES ($1, $2, $3, $4);`;
+  // const values = Object.values(this);
+  // values.push(id);
+  const values = [this.forecast, this.time, this.created_at, id];
   client.query(SQL, values);
 };
 
@@ -163,7 +191,9 @@ Weather.prototype.save = function(id) {
 // Question -- is anything in here other than the table name esoteric to weather? Is there an opportunity to DRY this out?
 Weather.lookup = function(handler) {
   const SQL = `SELECT * FROM weathers WHERE location_id=$1;`;
-  client.query(SQL, [handler.location.id])
+  const values = [handler.location.id];
+  
+  client.query(SQL, values)
     .then(result => {
       if(result.rowCount > 0) {
         console.log('Got data from SQL');
