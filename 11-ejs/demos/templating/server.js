@@ -24,15 +24,15 @@ let quantities = [
 
 // Routes
 app.get('/', (request, response) => {
-
+  response.render('index');
 })
 
 app.get('/list', (request, response) => {
-
+  response.render('list', {listOfGroceries: list});
 })
 
 app.get('/quantities', (request, response) => {
-
+  response.render('quantities', {quantities});
 })
 
 

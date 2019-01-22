@@ -9,12 +9,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Application Middleware
-
-
+app.use(express.urlencoded({extended: true}));
 
 // Set the view engine for server-side templating
-
-
+app.set('view engine', 'ejs');
 
 // API Routes
 // Renders the search form
@@ -32,12 +30,14 @@ app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
 // Book constructor
 function Book(info) {
-  
+  const placeHolderImage = 'https://i.imgur.com/J5LVHEL.jpg';
+
+  this.title = info.title ? info.title : 'No Title Found';
 }
 
 // Render index page on page load
 function newSearch(request, response) {
-
+  response.render('pages/index');
 }
 
 // No API key required
@@ -45,10 +45,20 @@ function newSearch(request, response) {
 function createSearch(request, response) {
   let url = 'https://www.googleapis.com/books/v1/volumes?q=';
 
-  console.log(request.body);
-  console.log(request.body.search);
+  // console.log('body', request.body);
+  // console.log('search', request.body.search);
 
-  // if (request.body.search[1] === 'title') { url += `+intitle:${request.body.search[0]}`; }
-  // if (request.body.search[1] === 'author') { url += `+inauthor:${request.body.search[0]}`; }
+  if (request.body.search[1] === 'title') { url += `+intitle:${request.body.search[0]}`; }
+  if (request.body.search[1] === 'author') { url += `+inauthor:${request.body.search[0]}`; }
+
+  // console.log('url', url);
+
+  return superagent.get(url)
+    .then(apiResponse => {
+      return apiResponse.body.items.map(bookResult => {
+        new Book(bookResult.volumeInfo);
+      })
+    })
+    .then(resultsFromMap => response.render('theResultsPage', {theData}))
 
 }

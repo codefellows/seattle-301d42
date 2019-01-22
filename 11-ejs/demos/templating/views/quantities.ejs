@@ -5,7 +5,9 @@
     <h1>My Grocery List</h1>
     <p><a href="/">Home</a></p>
     <ul>
-
+      <% quantities.forEach(item => { %>
+        <li>I need a total of <%=item.quantity %> <%= item.name %></li>
+      <% }); %>
     </ul>
   </body>
 </html>
